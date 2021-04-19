@@ -1,11 +1,21 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  ScrollView,
+  View,
+  Button,
+  TextInput,
+} from 'react-native';
 
 const NewPlaceScreen = () => {
   return (
-    <View>
-      <Text>NewPlaceScreen NewPlaceScreen</Text>
-    </View>
+    <ScrollView>
+      <View>
+        <Text>title</Text>
+        <TextInput />
+      </View>
+    </ScrollView>
   );
 };
 
