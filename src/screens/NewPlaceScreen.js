@@ -8,7 +8,7 @@ import {
   TextInput,
 } from 'react-native';
 import {colors} from '../constants';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {addPlace} from '../store/placesAction';
 import {useNavigation} from '@react-navigation/native';
 import {ImagePicker} from '../components';
