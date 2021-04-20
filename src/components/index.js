@@ -1,2 +1,3 @@
 import CustomHeaderButton from './HeaderButton';
-export {CustomHeaderButton};
+import PlaceItem from './PlaceItem';
+export {CustomHeaderButton, PlaceItem};

@@ -1,15 +1,16 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, View, StatusBar} from 'react-native';
+import {StyleSheet, Text, View, StatusBar, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
-import {CustomHeaderButton} from '../components';
+import {CustomHeaderButton, PlaceItem} from '../components';
+import {useSelector} from 'react-redux';
 import {colors} from '../constants';
 
 const PlacesListScreens = () => {
   const navigation = useNavigation();
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: 'All Products',
+      headerTitle: 'All Places',
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
           <Item
@@ -22,13 +23,27 @@ const PlacesListScreens = () => {
         </HeaderButtons>
       ),
     });
-  }, [navigation]);
+  }, []);
+  const {places} = useSelector(state => state.places);
+
   return (
     <>
       <StatusBar backgroundColor={colors.primary} />
-      <View>
-        <Text>PlacesListScreens PlacesListScreens</Text>
-      </View>
+      <FlatList
+        data={places}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => (
+          <PlaceItem
+            item={item}
+            onSelect={() => {
+              navigation.navigate('PlaceDetail', {
+                placeTitle: item.title,
+                placeId: item.id,
+              });
+            }}
+          />
+        )}
+      />
     </>
   );
 };
