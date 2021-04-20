@@ -38,6 +38,7 @@ const PlacesListScreens = () => {
             onSelect={() => {
               navigation.navigate('PlaceDetail', {
                 title: item.title,
+                imageUri: item.imageUri,
                 id: item.id,
               });
             }}

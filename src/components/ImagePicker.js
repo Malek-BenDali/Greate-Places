@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Button, Image, Text, View} from 'react-native';
 import {colors} from '../constants';
 import {launchCamera} from 'react-native-image-picker';
-const ImagePicker = () => {
+const ImagePicker = ({onImageTaken}) => {
   const [pickedImage, setPickedImage] = useState(null);
 
   const takeImageHandler = () => {
@@ -16,6 +16,7 @@ const ImagePicker = () => {
         } else if (response.errorMessage) {
           console.log(response.errorMessage);
         } else {
+          onImageTaken(response.uri);
           setPickedImage(response.uri);
         }
       },
@@ -45,7 +46,7 @@ export default ImagePicker;
 const styles = StyleSheet.create({
   imagePicker: {
     alignItems: 'center',
-    backgroundColor: 'white',
+    marginBottom: 15,
   },
   imagePreview: {
     width: '100%',
