@@ -31,8 +31,8 @@ const LocationPicker = () => {
       const coords = await Location.getLatestLocation({timeout: 5000});
       console.log(coords);
       setPickedLocation({
-        lat: coords.latitude,
-        lng: coords.longitude,
+        latitude: coords.latitude,
+        longitude: coords.longitude,
       });
       setIsFetching(false);
     } catch (err) {
@@ -41,7 +41,7 @@ const LocationPicker = () => {
   };
 
   const pickOnMapHandler = () => {
-    navigation.navigate('Map');
+    navigation.navigate('Map', {pickedLocation});
   };
   return (
     <View style={styles.locationPicker}>
