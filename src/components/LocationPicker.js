@@ -10,10 +10,12 @@ import {
 import {colors} from '../constants';
 import * as Location from 'react-native-location';
 import MapPreview from './MapPreview';
+import {useNavigation} from '@react-navigation/native';
 
-const LocationPicker = props => {
+const LocationPicker = () => {
   const [pickedLocation, setPickedLocation] = useState();
   const [isFetching, setIsFetching] = useState(false);
+  const navigation = useNavigation();
   const getLocationHandler = async () => {
     setIsFetching(true);
     try {
@@ -37,22 +39,39 @@ const LocationPicker = props => {
       console.log(err);
     }
   };
+
+  const pickOnMapHandler = () => {
+    navigation.navigate('Map');
+  };
   return (
     <View style={styles.locationPicker}>
       <View style={styles.mapPreview}>
         {isFetching ? (
           <ActivityIndicator size="large" color={colors.primary} />
         ) : (
-          <MapPreview style={styles.mapPreview} location={pickedLocation} />
+          <MapPreview
+            onPress={pickOnMapHandler}
+            style={styles.mapPreview}
+            location={pickedLocation}
+          />
         )}
       </View>
-      <Button
-        title="Get User Location"
-        color={colors.primary}
-        onPress={() => {
-          getLocationHandler();
-        }}
-      />
+      <View style={styles.actions}>
+        <Button
+          title="Get User Location"
+          color={colors.primary}
+          onPress={() => {
+            getLocationHandler();
+          }}
+        />
+        <Button
+          title="Go to Map"
+          color={colors.primary}
+          onPress={() => {
+            pickOnMapHandler();
+          }}
+        />
+      </View>
     </View>
   );
 };
@@ -71,5 +90,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  actions: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
   },
 });
